@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>You're invited · Couples Cycle</title>
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">
+<style>
+  /* Seasons palette, light and dark (design/tokens.json in the app repo). */
+  :root {
+    color-scheme: light dark;
+    --bg: #EFF3F6; --card: #FFFFFF; --fg: #131C20; --muted: #555F65; --body: #2E373C;
+    --accent: #223B6C; --on-accent: #FFFFFF; --tint: #E4EAF4; --ink: #1E3257; --coral: #E39385; --line: #B6BFC4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101517; --card: #1B2023; --fg: #EBEFF1; --muted: #A5ACAF; --body: #CCD2D5;
+      --accent: #91ABDC; --on-accent: #101517; --tint: #283041; --ink: #C9D8F3; --coral: #DC8C7F; --line: #4D5457;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg);
+    font: 16px/1.5 "DM Sans", system-ui, -apple-system, sans-serif;
+    padding: max(32px, env(safe-area-inset-top)) 20px max(32px, env(safe-area-inset-bottom));
+    display: flex; justify-content: center;
+  }
+  main { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 16px; }
+  .mark { width: 56px; height: 56px; position: relative; }
+  .mark i { position: absolute; top: 12px; width: 32px; height: 32px; border-radius: 50%; }
+  .mark i:first-child { left: 5px; background: var(--accent); }
+  .mark i:last-child { left: 19px; background: var(--coral); opacity: .85; }
+  h1 { font-family: "Bricolage Grotesque", "DM Sans", sans-serif; font-weight: 700; font-size: 34px;
+       line-height: 1.08; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+  p { margin: 0; color: var(--muted); }
+  .card { background: var(--card); border-radius: 20px; padding: 18px 16px; display: flex; flex-direction: column; gap: 12px; }
+  .card h2 { font-size: 16px; font-weight: 600; margin: 0; }
+  ol { margin: 0; padding-left: 20px; color: var(--body); }
+  li + li { margin-top: 6px; }
+  .button { display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: 16px;
+            background: var(--accent); color: var(--on-accent); font-weight: 600; text-decoration: none; font-size: 16px; }
+  .button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .note { font-size: 13px; color: var(--muted); display: flex; gap: 8px; align-items: flex-start; }
+  .tint { background: var(--tint); color: var(--ink); border-radius: 14px; padding: 12px 14px; font-size: 14px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="mark" aria-hidden="true"><i></i><i></i></div>
+  <h1>You've been invited to Couples Cycle</h1>
+  <p>Your partner wants to share how their cycle is going and what helps, so you can show up in the right way.</p>
+
+  <section id="with-token" hidden>
+    <a class="button" id="open">Open the invite in the app</a>
+  </section>
+
+  <section class="card">
+    <h2>Don't have the app yet?</h2>
+    <ol>
+      <li>Install Couples Cycle. It's in private testing, so ask your partner for the TestFlight invite.</li>
+      <li>Come back to this page and tap <strong>Open the invite in the app</strong>, or</li>
+      <li>open the app, tap <strong>enter their invite code</strong> and type the six-character code from their message.</li>
+    </ol>
+  </section>
+
+  <p class="tint" id="no-token" hidden>This link is missing its invite. Open the app and enter the code your partner sent instead.</p>
+
+  <p class="note">
+    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+    <span>Your partner decides what you see and can stop sharing any time. This page stores nothing and sends your invite nowhere; it only passes it to the app on this phone.</span>
+  </p>
+</main>
+<script>
+  // The invite token travels after "#", so it never reaches this site's server.
+  const token = decodeURIComponent(location.hash.slice(1));
+  if (/^[A-Za-z0-9_-]{20,}$/.test(token)) {
+    document.getElementById("open").href = "couplescycle://join?token=" + encodeURIComponent(token);
+    document.getElementById("with-token").hidden = false;
+  } else {
+    document.getElementById("no-token").hidden = false;
+  }
+</script>
+</body>
+</html>
