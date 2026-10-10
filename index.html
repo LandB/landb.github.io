@@ -5,13 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Couples Cycle</title>
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#EFF3F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101517" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=DM+Sans:opsz,wght@9..40,400&display=swap">
 <style>
-  :root { color-scheme: light dark; --bg:#EFF3F6; --fg:#131C20; --muted:#555F65; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#101517; --fg:#EBEFF1; --muted:#A5ACAF; } }
+  /* Seasons palette, light and dark (design/tokens.json in the app repo). */
+  :root { color-scheme: light dark; --bg:#EFF3F6; --fg:#131C20; --muted:#555F65; --accent:#223B6C; --coral:#E39385; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#101517; --fg:#EBEFF1; --muted:#A5ACAF; --accent:#91ABDC; --coral:#DC8C7F; } }
   body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--fg);
-         font: 16px/1.5 system-ui, -apple-system, sans-serif; padding: 24px; box-sizing: border-box; }
-  p { color: var(--muted); }
+         font: 16px/1.5 "DM Sans", system-ui, -apple-system, sans-serif; padding: 24px; box-sizing: border-box; }
+  main { display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center; }
+  h1 { margin:0; font-family:"Bricolage Grotesque", "DM Sans", sans-serif; font-weight:700; font-size:34px; letter-spacing:-0.01em; }
+  p { margin:0; color: var(--muted); }
+  /* The mark ("Knockout"); mark.js orbits it once. */
+  .mark { --size: 72px; width: var(--size); height: var(--size); position: relative; flex: none; }
+  .mark i { position: absolute; left: 50%; top: 50%; width: calc(var(--size) * 32 / 56); height: calc(var(--size) * 32 / 56);
+            margin: calc(var(--size) * -16 / 56) 0 0 calc(var(--size) * -16 / 56); border-radius: 50%;
+            box-shadow: 0 0 0 2px var(--bg); }
+  .mark i:first-child { background: var(--accent); transform: translateX(calc(var(--size) * -7 / 56)); z-index: 1; }
+  .mark i:last-child { background: var(--coral); transform: translateX(calc(var(--size) * 7 / 56)); z-index: 2; }
 </style>
 </head>
-<body><main><h1>Couples Cycle</h1><p>A cycle app for two. In private testing.</p></main></body>
+<body>
+<main>
+  <span class="mark" aria-hidden="true"><i></i><i></i></span>
+  <h1>Couples Cycle</h1>
+  <p>A cycle app for two. In private testing.</p>
+</main>
+<script src="/mark.js" defer></script>
+</body>
 </html>

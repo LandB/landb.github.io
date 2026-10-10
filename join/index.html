@@ -6,6 +6,10 @@
 <title>You're invited · Couples Cycle</title>
 <meta name="robots" content="noindex">
 <meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#EFF3F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101517" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">
@@ -30,10 +34,15 @@
     display: flex; justify-content: center;
   }
   main { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 16px; }
-  .mark { width: 56px; height: 56px; position: relative; }
-  .mark i { position: absolute; top: 12px; width: 32px; height: 32px; border-radius: 50%; }
-  .mark i:first-child { left: 5px; background: var(--accent); }
-  .mark i:last-child { left: 19px; background: var(--coral); opacity: .85; }
+  /* The mark ("Knockout"): her circle behind, her partner's in front with a gap; mark.js orbits it once. */
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .brand .word { font-family: "Bricolage Grotesque", "DM Sans", sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
+  .mark { --size: 42px; width: var(--size); height: var(--size); position: relative; flex: none; }
+  .mark i { position: absolute; left: 50%; top: 50%; width: calc(var(--size) * 32 / 56); height: calc(var(--size) * 32 / 56);
+            margin: calc(var(--size) * -16 / 56) 0 0 calc(var(--size) * -16 / 56); border-radius: 50%;
+            box-shadow: 0 0 0 1.5px var(--bg); }
+  .mark i:first-child { background: var(--accent); transform: translateX(calc(var(--size) * -7 / 56)); z-index: 1; }
+  .mark i:last-child { background: var(--coral); transform: translateX(calc(var(--size) * 7 / 56)); z-index: 2; }
   h1 { font-family: "Bricolage Grotesque", "DM Sans", sans-serif; font-weight: 700; font-size: 34px;
        line-height: 1.08; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
   p { margin: 0; color: var(--muted); }
@@ -51,7 +60,10 @@
 </head>
 <body>
 <main>
-  <div class="mark" aria-hidden="true"><i></i><i></i></div>
+  <header class="brand">
+    <span class="mark" aria-hidden="true"><i></i><i></i></span>
+    <span class="word">Couples Cycle</span>
+  </header>
   <h1>You've been invited to Couples Cycle</h1>
   <p>Your partner wants to share how their cycle is going and what helps, so you can show up in the right way.</p>
 
@@ -85,5 +97,6 @@
     document.getElementById("no-token").hidden = false;
   }
 </script>
+<script src="/mark.js" defer></script>
 </body>
 </html>
