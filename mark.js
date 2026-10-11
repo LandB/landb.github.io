@@ -1,11 +1,14 @@
 // The Couples Cycle mark's orbit, as the app draws it (AppMark / OrbitMotion): the two circles
 // turn once around a vertical axis, seen from a little above, so each passes in front of the
-// other, then settle into the logo. Depth and tilt are gone at rest, so the rest is the logo.
+// other (the face squints, "^ ^"), then settle into the logo and smile wider with a tilt of the
+// head. Depth and tilt are gone at rest, so the rest is the logo; it keeps blinking (mark.css).
 // Skipped when the visitor prefers reduced motion; without script the mark just stands still.
 (() => {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  const turnMs = 2856;            // 4.2 s loop × 0.68, as in the app
+  const turnMs = 2880;            // 6 s loop × 0.48, as in the app
+  const squintMs = 2200;          // the eyes reopen near the end of the turn
+  const smileMs = 2700;           // after the turn
   const restAngle = 24 * Math.PI / 180;
   const peakTilt = 16 * Math.PI / 180;
 
@@ -27,7 +30,11 @@
   }
   const ease = bezier(0.6, 0, 0.25, 1);
 
-  for (const mark of document.querySelectorAll(".mark")) {
+  // After every stylesheet has applied: mark.css sets the size the orbit is measured from.
+  const run = () => { for (const mark of document.querySelectorAll(".mark")) orbit(mark); };
+  if (document.readyState === "complete") run(); else addEventListener("load", run, { once: true });
+
+  function orbit(mark) {
     const [tracker, partner] = mark.querySelectorAll("i");
     const size = mark.getBoundingClientRect().width;
     const offset = size * 7 / 56;
@@ -55,6 +62,12 @@
       tracker.style.zIndex = partnerDepth >= trackerDepth ? 1 : 2;
       if (progress < 1) requestAnimationFrame(frame);
     };
-    setTimeout(() => requestAnimationFrame(frame), 250);
+    setTimeout(() => {
+      mark.classList.add("spinning");
+      setTimeout(() => mark.classList.remove("spinning"), squintMs);
+      setTimeout(() => mark.classList.add("smiling"), turnMs);
+      setTimeout(() => mark.classList.remove("smiling"), turnMs + smileMs);
+      requestAnimationFrame(frame);
+    }, 250);
   }
 })();

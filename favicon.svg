@@ -1,8 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 48 48">
-  <!-- The Couples Cycle mark ("Knockout"): her circle behind, her partner's in front, with a gap. -->
+  <!-- The Couples Cycle mark ("Knockout"): her circle behind, her partner's in front with a gap,
+       and a face on her partner's circle. -->
   <style>
-    .tracker { fill: #223B6C; } .partner { fill: #E39385; }
-    @media (prefers-color-scheme: dark) { .tracker { fill: #91ABDC; } .partner { fill: #DC8C7F; } }
+    .tracker { fill: #223B6C; } .partner { fill: #E39385; } .face { fill: #131C20; stroke: #131C20; }
+    @media (prefers-color-scheme: dark) { .tracker { fill: #91ABDC; } .partner { fill: #DC8C7F; } .face { fill: #101517; stroke: #101517; } }
   </style>
   <mask id="gap">
     <rect x="0" y="0" width="56" height="56" fill="#fff"/>
@@ -10,4 +11,9 @@
   </mask>
   <circle class="tracker" cx="21" cy="28" r="16" mask="url(#gap)"/>
   <circle class="partner" cx="35" cy="28" r="16"/>
+  <g class="face">
+    <circle cx="27.75" cy="26" r="1.6" stroke="none"/>
+    <circle cx="42.25" cy="26" r="1.6" stroke="none"/>
+    <path d="M 32.5 26.75 A 2.5 2.5 0 0 0 37.5 26.75" fill="none" stroke-width="1.1" stroke-linecap="round"/>
+  </g>
 </svg>

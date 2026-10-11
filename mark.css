@@ -1,0 +1,28 @@
+/* The Couples Cycle mark ("Knockout" with a face), as the app draws it (AppMark).
+   Pages set --size on .mark and define --bg, --accent, --coral and --face in :root.
+   mark.js orbits it once on load: the eyes squint while it turns, then it smiles. */
+.mark { --size: 56px; width: var(--size); height: var(--size); position: relative; flex: none; }
+.mark i { position: absolute; left: 50%; top: 50%; width: calc(var(--size) * 32 / 56); height: calc(var(--size) * 32 / 56);
+          margin: calc(var(--size) * -16 / 56) 0 0 calc(var(--size) * -16 / 56); border-radius: 50%;
+          box-shadow: 0 0 0 max(1.5px, calc(var(--size) * 3 / 112)) var(--bg); }
+.mark i:first-child { background: var(--accent); transform: translateX(calc(var(--size) * -7 / 56)); z-index: 1; }
+.mark i:last-child { background: var(--coral); transform: translateX(calc(var(--size) * 7 / 56)); z-index: 2; }
+
+.mark .face { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: var(--face); stroke: var(--face);
+              transition: transform .5s ease-in-out; }
+.mark .eyes, .mark .blink, .mark .squint, .mark .mouth { transform-box: fill-box; transform-origin: center; }
+.mark .eyes { stroke: none; transition: opacity .15s linear, transform .15s linear; }
+.mark .blink { animation: mark-blink 12s linear infinite; }
+.mark .squint { fill: none; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: scale(.7);
+                transition: opacity .2s ease-out, transform .2s ease-out; }
+.mark .mouth { fill: none; stroke-width: 1.4px; vector-effect: non-scaling-stroke; stroke-linecap: round; transform-origin: 50% 0;
+               transition: transform .5s ease-in-out; }
+.mark.spinning .eyes { opacity: 0; transform: scaleY(.1); }
+.mark.spinning .squint { opacity: 1; transform: scale(1); }
+.mark.smiling .mouth { transform: scale(1.35, 1.1); }
+.mark.smiling .face { transform: rotate(-7deg); }
+@keyframes mark-blink {
+  0%, 35.6% { transform: scaleY(1); } 36.1% { transform: scaleY(.08); } 36.8%, 85.6% { transform: scaleY(1); }
+  86.1% { transform: scaleY(.08); } 86.8%, 88.2% { transform: scaleY(1); } 88.7% { transform: scaleY(.08); } 89.4%, 100% { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) { .mark .blink { animation: none; } }

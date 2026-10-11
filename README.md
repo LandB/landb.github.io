@@ -7,8 +7,10 @@ Static pages for the Couples Cycle app (working title).
   `couplescycle://join?token=…` and explains how to use the typed code instead.
 
 - `index.html` — a placeholder home page.
-- `favicon.svg`, `apple-touch-icon.png` and `mark.js` — the app's mark ("Knockout"). `mark.js`
-  orbits it once on load, the same motion as the app's `AppMark` (skipped with reduced motion).
+- `favicon.svg`, `apple-touch-icon.png`, `mark.css` and `mark.js` — the app's mark ("Knockout"
+  with a face on the partner's circle). `mark.css` draws it and makes it blink; `mark.js` orbits
+  it once on load, the same motion as the app's `AppMark`: the eyes squint while it turns, then
+  it smiles wider and tilts its head (all skipped with reduced motion).
   The colors and proportions come from `design/tokens.json` and DESIGN.md › Mark and Motion in
   the app repo; the touch icon is the app icon at 180 px.
 
